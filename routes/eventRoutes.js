@@ -7,6 +7,6 @@ const router = express.Router();
 router.get("/");
 
 router.get("/events", eventController.getEvents);
-router.get(":event/quests", evemtController.getQuests);
+router.get(":event/quests", eventController.getQuests);
 
 module.exports = router;
