@@ -1,4 +1,4 @@
-const Event = require("../models/events");
+const Event = require("../models/event");
 const Quest = require("../models/quest");
 
 exports.getEvents = (req, res, next) => {
@@ -13,7 +13,7 @@ exports.getEvents = (req, res, next) => {
 };
 
 exports.getQuests = (req, res, next) => {
-    Quests.fetchAll((quests) => {
+    Quest.fetchAll((quests) => {
         //NAPOJIT DATABAZU SEM
         res.render("events", {
             prods: quests,
