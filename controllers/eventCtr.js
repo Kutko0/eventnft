@@ -1,4 +1,4 @@
-const Event = require("../models/event");
+const Event = require("../models/events");
 const Quest = require("../models/quest");
 
 exports.getEvents = (req, res, next) => {
