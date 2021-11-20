@@ -14,6 +14,9 @@ const MOCK_CID = "https://bafkreibop7yidbnljbs45cu22nujxvqsl5uss422d7fp3tjqo2inr
 // Load models
 const Event = require("./schemas/Event");
 const Quest = require("./schemas/Quest");
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(port, () => {
     console.log("Server is running at port: " + port );
