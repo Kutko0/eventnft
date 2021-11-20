@@ -5,7 +5,7 @@ const express = require("express");
 
 dotenv.config();
 const app = express();
-const port = 3000;
+const port = process.env.APP_PORT;
 const uri = "mongodb+srv://" + process.env.DB_NAME + ":" + process.env.DB_PASS + "@defest.56ckm.mongodb.net/defest_events?retryWrites=true&w=majority";
 const client = new nft.NFTStorage({ token: process.env.API_KEY_NFT_STORAGE });
 const MOCK_CID = "https://bafkreibop7yidbnljbs45cu22nujxvqsl5uss422d7fp3tjqo2inrhynra.ipfs.dweb.link/" 
