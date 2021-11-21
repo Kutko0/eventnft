@@ -24,4 +24,6 @@ router.post("quests/update", eventController.updateQuest);
 router.get("/event/:id/delete", eventController.deleteEvent);
 router.get("/quest/:id/delete", eventController.deleteQuest);
 
+router.get("/quest/:id/complete", eventController.completeQuest)
+
 module.exports = router;

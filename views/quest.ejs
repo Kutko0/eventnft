@@ -3,9 +3,17 @@
 
 <div class="container">
     <div>
-        <h1 class="d-flex justify-content-center"><%= quest.title %></h1>
+        <% if (quest.resolved) { %>
+            <h1 class="d-flex justify-content-center">Quest <%= quest.title %>  completed</h1>
 
-        <p class="d-flex justify-content-center"><%= quest.description %></p>
+            <p>Transaction external url: <a href="<%= quest.external_contract_url %>" target="_blank">Here</a></p>
+            <img src="<%= quest.nft_cid %>" alt="NTF image">
+        <% } else { %>
+            <h1 class="d-flex justify-content-center"><%= quest.title %></h1>
+
+            <p class="d-flex justify-content-center"><%= quest.description %></p>
+        <% } %>
+        
     </div>
 </div>
 

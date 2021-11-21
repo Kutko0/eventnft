@@ -119,9 +119,9 @@ const deleteNftBydCid = async (cid) => {
 const mintByCid = require("./services/nftport").mint_cid;
 const retrieve_by_hash = require("./services/nftport").retrieve_by_hash;
 // mintByCid(MOCK_CID);
-retrieve_by_hash(
-    "0x90239c479c539cdb033bca8a55c622fdac9b6d050a1c90917684a08eaeb047b2"
-);
+//retrieve_by_hash(
+//     "0x90239c479c539cdb033bca8a55c622fdac9b6d050a1c90917684a08eaeb047b2"
+// );
 
 //-----------------------
 // NFT PORT EXAMPLE START

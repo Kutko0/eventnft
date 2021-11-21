@@ -1,6 +1,10 @@
 const Event = require("../schemas/Event");
 const Quest = require("../schemas/Quest");
 const mongoose = require("mongoose");
+const { mint_cid } = require("../services/nftport");
+const MOCK_CID =
+    "https://bafkreibop7yidbnljbs45cu22nujxvqsl5uss422d7fp3tjqo2inrhynra.ipfs.dweb.link/";
+    
 
 exports.postAddEvent = (req, res, next) => {
     const event = new Event({
@@ -44,7 +48,7 @@ exports.updateEvent = (req, res, next) => {
             if (err) {
                 res.send(err);
             } else {
-                res.send(result);
+                res.status(500).send(result);
             }
         }
     );
@@ -111,6 +115,7 @@ exports.updateQuest = (req, res, next) => {
             }
         }
     );
+    
 };
 
 exports.deleteQuest = (req, res, next) => {
@@ -133,3 +138,27 @@ exports.getQuest = (req, res, next) => {
         }
     );
 };
+
+
+exports.completeQuest = (req, res) => {
+    let questId = req.params.id;
+
+    Quest.findOne({_id: questId}).then( (quest) => {
+        if (quest.resolved) {
+            res.render('quest', { quest });
+        } else {
+            mint_cid(MOCK_CID).then((response) => {
+                Quest.updateOne({_id: questId}, {resolved: true, external_contract_url: response.data.transaction_external_url, nft_cid: MOCK_CID}).then(() => {
+                    Quest.findOne({_id: questId}).then( (quest) => {
+                        console.log(response.data);
+                        res.render('quest', { quest });
+                    });
+                });
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+        }
+    });
+
+}

@@ -4,7 +4,7 @@
 
 <div class="container">
     <div>
-        <h1 class="d-flex justify-content-center">Event <%= event.title %></h1>
+        <h1 class="d-flex justify-content-center"><%= event.title %></h1>
 
         <p class="d-flex justify-content-center">
             Here, a list of quests will be shown
@@ -14,19 +14,28 @@
             <% quests.forEach(quest => { %>
             <div class="col-sm-6 col-md-4">
                 <div class="card">
-                    <a href="/quest/<%= quest._id %>" class="text-decoration-none" style="color: black">
+                    <% if (quest.resolved) { %>
+                        <a href="/quest/<%= quest._id %>/complete" class="text-decoration-none" style="color: black">
+                    <% } else { %>
+                        <a href="/quest/<%= quest._id %>" class="text-decoration-none" style="color: black">
+                    <% } %>
                         <div class="card-body">
                             <h5 class="card-title"><%= quest.title %></h5>
-                            <p class="card-text">
-                                Organiser: <%= quest.description %>
+                            <div class="card-text">
+                                <p>Organiser: <%= quest.description %></p>
+                                <% if (!quest.resolved) { %>
+                                    <a href="/quest/<%= quest._id %>/complete" class="card-link link-success">Complete</a>
+                                <% } %>
                                 <a href="/quest/<%= quest._id %>/delete" class="card-link link-danger">Delete</a>
-                            </p>
+                            </div>
                         </div>
                     </a>
                 </div>
             </div>
             <% }) %>
         </div>
+
+        <br>
 
         <div>
             <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQuest">Create quest</button>
