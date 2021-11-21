@@ -22,7 +22,7 @@
                         <div class="card-body">
                             <h5 class="card-title"><%= quest.title %></h5>
                             <div class="card-text">
-                                <p>Organiser: <%= quest.description %></p>
+                                <p><%= quest.description %></p>
                                 <% if (!quest.resolved) { %>
                                     <a href="/quest/<%= quest._id %>/complete" class="card-link link-success">Complete</a>
                                 <% } %>

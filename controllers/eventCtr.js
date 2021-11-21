@@ -3,7 +3,7 @@ const Quest = require("../schemas/Quest");
 const mongoose = require("mongoose");
 const { mint_cid } = require("../services/nftport");
 const MOCK_CID =
-    "https://bafkreibop7yidbnljbs45cu22nujxvqsl5uss422d7fp3tjqo2inrhynra.ipfs.dweb.link/";
+    "https://bafkreiev5nc5kz6qak47f3s6yvlsxbwjgsv5nbuiwwntiyvljpsy3gvcfu.ipfs.dweb.link/";
     
 
 exports.postAddEvent = (req, res, next) => {
@@ -25,6 +25,7 @@ exports.postAddQuest = (req, res, next) => {
         title: req.body.title,
         description: req.body.description,
         eventId: req.body.eventId,
+        nft_cid: req.body.nft_cid,
     });
     Quest.create(quest, (err) => {
         if (err) {
@@ -69,7 +70,7 @@ exports.getEventConsole = (id, callback) => {
 };
 
 exports.getEvent = (req, res, next) => {
-    Event.findOne({ id: req.params.id }).then(
+    Event.findOne({ _id: req.params.id }).then(
         (event) => {
             Quest.find({ eventId: req.params.id }).then((quests) => {
                 res.render("event", { event, quests });
@@ -147,10 +148,9 @@ exports.completeQuest = (req, res) => {
         if (quest.resolved) {
             res.render('quest', { quest });
         } else {
-            mint_cid(MOCK_CID).then((response) => {
-                Quest.updateOne({_id: questId}, {resolved: true, external_contract_url: response.data.transaction_external_url, nft_cid: MOCK_CID}).then(() => {
+            mint_cid(quest.nft_cid).then((response) => {
+                Quest.updateOne({_id: questId}, {resolved: true, external_contract_url: response.data.transaction_external_url}).then(() => {
                     Quest.findOne({_id: questId}).then( (quest) => {
-                        console.log(response.data);
                         res.render('quest', { quest });
                     });
                 });
