@@ -64,17 +64,14 @@ exports.getEvent = (req, res, next) => {
 };
 
 exports.getEvents = (req, res, next) => {
-    Event.find({}, (err) => {
-        if (err) {
-            console.log(err);
+    Event.find({}).then(
+        (events) => {
+            res.send(events);
+        },
+        (error) => {
+            res.status(500).send(error);
         }
-    }).then((events) => {
-        res.render("events", {
-            events: events,
-            pageTitle: "All Events",
-            path: "/events",
-        });
-    });
+    );
 };
 
 exports.addQuest = (req, res, next) => {
