@@ -1,5 +1,6 @@
-<%- include('partials/header'); %> <%- include('partials/navbar', {link:
-'events'}); %>
+<%- include('partials/header'); %> 
+
+<%- include('partials/navbar', {link:'events'}); %>
 
 <div class="container">
     <div>
@@ -13,15 +14,36 @@
             <% quests.forEach(quest => { %>
             <div class="col-sm-6 col-md-4">
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= quest.title %></h5>
-                        <p class="card-text">
-                            Organiser: <%= quest.description %>
-                        </p>
-                    </div>
+                    <a href="/quest/<%= quest._id %>" class="text-decoration-none" style="color: black">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= quest.title %></h5>
+                            <p class="card-text">
+                                Organiser: <%= quest.description %>
+                                <a href="/quest/<%= quest._id %>/delete" class="card-link link-danger">Delete</a>
+                            </p>
+                        </div>
+                    </a>
                 </div>
             </div>
             <% }) %>
+        </div>
+
+        <div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createQuest">Create quest</button>
+        </div>
+
+        <div class="modal" id="createQuest" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create quest</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%- include('forms/create-quest', {event}); %>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

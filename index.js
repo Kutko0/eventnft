@@ -15,14 +15,16 @@ const uri =
 const client = new nft.NFTStorage({ token: process.env.API_KEY_NFT_STORAGE });
 const MOCK_CID =
     "https://bafkreibop7yidbnljbs45cu22nujxvqsl5uss422d7fp3tjqo2inrhynra.ipfs.dweb.link/";
-
+    
 // Load models
+
 const Event = require("./schemas/Event");
 const Quest = require("./schemas/Quest");
 const path = require("path");
 const eventController = require("./controllers/eventCtr");
 const eventRoutes = require("./routes/eventRoutes");
-
+//app.use(express.json());
+app.use(express.urlencoded());
 app.set("view engine", "ejs");
 
 app.use(eventRoutes);
@@ -74,16 +76,16 @@ app.listen(port, () => {
     //     }
     // });
 
-    eventController.getEventConsole(
-        "619941823f23a5d7732ad103",
-        (error, event) => {
-            if (event) {
-                console.log(event);
-            } else {
-                console.log(error);
-            }
-        }
-    );
+    // eventController.getEventConsole(
+    //     "619941823f23a5d7732ad103",
+    //     (error, event) => {
+    //         if (event) {
+    //             console.log(event);
+    //         } else {
+    //             console.log(error);
+    //         }
+    //     }
+    // );
 });
 //--------------------------
 // NFT STORAGE EXAMPLE START

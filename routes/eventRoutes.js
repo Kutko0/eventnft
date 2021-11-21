@@ -13,12 +13,15 @@ router.get("/profile", (req, res) => {
 });
 
 router.get("/events", eventController.getEvents);
-router.get("/quests", eventController.getQuests);
-// todo: how to provide params
 router.get("/event/:id", eventController.getEvent);
 router.get("/quest/:id", eventController.getQuest);
+
+router.post("/event", eventController.postAddEvent);
+router.post("/quest", eventController.postAddQuest)
 router.post("events/update", eventController.updateEvent);
 router.post("quests/update", eventController.updateQuest);
-router.delete("/events/delete", eventController.deleteEvent);
-router.delete("/quests/delete", eventController.deleteQuest);
+
+router.get("/event/:id/delete", eventController.deleteEvent);
+router.get("/quest/:id/delete", eventController.deleteQuest);
+
 module.exports = router;

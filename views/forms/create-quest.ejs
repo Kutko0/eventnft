@@ -1,0 +1,12 @@
+<form action="/quest" method="post">
+    <div class="mb-3">
+        <label class="form-label">Quest name</label>
+        <input type="text" class="form-control" name="title">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Description</label>
+        <input type="text" class="form-control" name="description">
+    </div>
+    <input type="hidden" value="<%= event._id %>" name="eventId">
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

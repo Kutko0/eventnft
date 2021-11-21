@@ -4,14 +4,29 @@ const mongoose = require("mongoose");
 
 exports.postAddEvent = (req, res, next) => {
     const event = new Event({
-        title: req.body.eventTitle,
-        organiser: req.body.eventOrganiser,
+        title: req.body.title,
+        organiser: req.body.organiser,
         dateLive: req.body.dateLive,
     });
     Event.create(event, (err) => {
         if (err) {
             console.log(err);
         }
+        res.redirect("/events");
+    });
+};
+
+exports.postAddQuest = (req, res, next) => {
+    const quest = new Quest({
+        title: req.body.title,
+        description: req.body.description,
+        eventId: req.body.eventId,
+    });
+    Quest.create(quest, (err) => {
+        if (err) {
+            console.log(err);
+        }
+        res.redirect("/event/" + req.body.eventId);
     });
 };
 
@@ -36,10 +51,9 @@ exports.updateEvent = (req, res, next) => {
 };
 
 exports.deleteEvent = (req, res, next) => {
-    const id = req.body.eventId;
-    if (Event.find({ _id: id }).deleteOne() == 1) {
-        return true;
-    } else return false;
+    Event.find({ _id: req.params.id }).deleteOne().then(
+        res.redirect("/events")
+    )
 };
 
 exports.getEventsConsole = (callback) => {
@@ -51,7 +65,7 @@ exports.getEventConsole = (id, callback) => {
 };
 
 exports.getEvent = (req, res, next) => {
-    Event.find({ id: req.params.id }).then(
+    Event.findOne({ id: req.params.id }).then(
         (event) => {
             Quest.find({ eventId: req.params.id }).then((quests) => {
                 res.render("event", { event, quests });
@@ -74,18 +88,7 @@ exports.getEvents = (req, res, next) => {
     );
 };
 
-exports.addQuest = (req, res, next) => {
-    const quest = new Quest({
-        title: req.body.questTitle,
-        description: req.body.questDescription,
-        resolved: false,
-    });
-    Quest.create(quest, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    });
-};
+
 exports.updateQuest = (req, res, next) => {
     const quest = new Quest({
         id: req.body.questId,
@@ -111,35 +114,22 @@ exports.updateQuest = (req, res, next) => {
 };
 
 exports.deleteQuest = (req, res, next) => {
-    const id = req.body.questId;
-    if (Quest.find({ _id: id }).deleteOne() == 1) {
-        return true;
-    } else return false;
+    Quest.findOne({ _id: req.params.id }).then(
+        (quest) => {
+            Quest.find({ _id: req.params.id }).deleteOne().then(() => {
+                res.redirect("/event/" + quest.eventId);
+            }) 
+        }
+    )
 };
 
 exports.getQuest = (req, res, next) => {
-    Quest.find({ id: req.params.questId }).then(
+    Quest.findOne({ _id: req.params.id }).then(
         (quest) => {
-            res.render("quest", {
-                quest,
-            });
+            res.render("quest", { quest });
         },
         (error) => {
             res.status(500).send(error);
         }
     );
-};
-
-exports.getQuests = (req, res, next) => {
-    Quest.find({}, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    }).then((quests) => {
-        res.render("quests", {
-            quests: quests,
-            pageTitle: "All Quests",
-            path: "/quests",
-        });
-    });
 };

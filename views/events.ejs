@@ -13,15 +13,36 @@
             <% events.forEach(event => { %>
                 <div class="col-sm-6 col-md-4">
                     <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title"><%= event.title %></h5>
-                            <p class="card-text">Organiser: <%= event.organiser %></p>
-                        </div>
+                        <a href="/event/<%= event._id %>" class="text-decoration-none" style="color: black">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= event.title %></h5>
+                                <p class="card-text">Organiser: <%= event.organiser %></p>
+                                <a href="/event/<%= event._id %>/delete" class="card-link link-danger">Delete</a>
+                            </div>
+                        </a>
                     </div>
                 </div>
             <% }) %>
 
         </div>
+
+        <div>
+            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createEvent">Create event</button>
+        </div>
+
+        <div class="modal" id="createEvent" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create event</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <%- include('forms/create-event'); %> 
+                </div>
+                </div>
+            </div>
+        </div>          
     </div>
 </div>
 
