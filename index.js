@@ -23,7 +23,8 @@ const path = require("path");
 const eventController = require("./controllers/eventCtr");
 const eventRoutes = require("./routes/eventRoutes");
 
-app.use(express.static(path.join(__dirname, "public")));
+app.set('view engine', 'ejs');
+
 app.use(eventRoutes);
 
 app.listen(port, () => {
@@ -39,31 +40,31 @@ app.listen(port, () => {
         console.log("could not connect");
     }
 
-    const example = new Event({
-        title: "Example15 event",
-        organiser: "Struky Shmoe",
-        dateLive: new Date(2022, 10, 20),
-    });
-
-    const questExample = new Quest({
-        title: "Kiss 3 bartenders without sexually offendimg them",
-        description: "Don't be a pussy and do it",
-        eventId: "619941823f23a5d7732ad103",
-    });
-
-    example.questList = [questExample];
-
-    Event.create(example, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    });
-
-    Quest.create(questExample, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    });
+    // const example = new Event({
+    //     title: "Example15 event",
+    //     organiser: "Struky Shmoe",
+    //     dateLive: new Date(2022, 10, 20),
+    // });
+    //
+    // const questExample = new Quest({
+    //     title: "Kiss 3 bartenders without sexually offendimg them",
+    //     description: "Don't be a pussy and do it",
+    //     eventId: "619941823f23a5d7732ad103",
+    // });
+    //
+    // example.questList = [questExample];
+    //
+    // Event.create(example, (err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    // });
+    //
+    // Quest.create(questExample, (err) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    // });
 
     // eventController.getEventsConsole((error, events) => {
     //     if (events) {
