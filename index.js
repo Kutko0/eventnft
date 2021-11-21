@@ -21,9 +21,11 @@ const Event = require("./schemas/Event");
 const Quest = require("./schemas/Quest");
 const path = require("path");
 const eventController = require("./controllers/eventCtr");
+const eventRoutes = require("./routes/eventRoutes");
 
 app.use(express.static(path.join(__dirname, "public")));
-//app.use(eventRoutes);
+app.use(eventRoutes);
+
 app.listen(port, () => {
     console.log("Server is running at port: " + port);
     try {
