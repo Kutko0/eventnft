@@ -1,0 +1,33 @@
+<%- include('partials/header'); %>
+
+<%- include('partials/navbar', {link: 'profile'}); %>
+
+<div class="container">
+    <h1>Profile</h1>
+
+    <form action="#">
+        <div class="mb-3">
+            <label for="walletAddress" class="form-label">Wallet Address</label>
+            <input type="text" class="form-control" id="walletAddress">
+        </div>
+
+        <button type="submit" class="btn btn-primary" onclick="setWalletId()">Set</button>
+    </form>
+</div>
+
+<script>
+    function setWalletId() {
+        let walletAddress = $('#walletAddress').val()
+        localStorage.setItem('walletAddress', walletAddress)
+    }
+
+    $(document).ready(function () {
+        // fill wallet id
+        let walletAddress = localStorage.getItem('walletAddress')
+        if (walletAddress != null) {
+            $('#walletAddress').val(walletAddress)
+        }
+    })
+</script>
+
+<%- include('partials/footer'); %>

@@ -4,7 +4,13 @@ const express = require("express");
 const eventController = require("../controllers/eventCtr");
 const router = express.Router();
 
-router.get("/");
+router.get("/", (req, res) => {
+    res.render('index');
+});
+
+router.get("/profile", (req, res) => {
+    res.render('profile');
+});
 
 router.get("/events", eventController.getEvents);
 router.get("/quests", eventController.getQuests);
