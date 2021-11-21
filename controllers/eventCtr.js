@@ -148,7 +148,7 @@ exports.getQuests = (req, res, next) => {
 };
 
 exports.getQuestsForEvent = (req, res, next) => {
-    Quest.find({ eventId: req.body.eventId }, (err) => {
+    Quest.find({ eventId: req.params.eventId }, (err) => {
         if (err) {
             console.log(err);
         }
