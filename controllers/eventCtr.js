@@ -34,6 +34,7 @@ exports.updateEvent = (req, res, next) => {
         }
     );
 };
+
 exports.deleteEvent = (req, res, next) => {
     const id = req.body.eventId;
     if (Event.find({ _id: id }).deleteOne() == 1) {
@@ -50,23 +51,22 @@ exports.getEventConsole = (id, callback) => {
 };
 
 exports.getEvent = (req, res, next) => {
-    Event.find({ id: req.param.eventId }, (err) => {
-        if (err) {
-            console.log(err);
+    Event.find({ id: req.params.id }).then(
+        (event) => {
+            Quest.find({ eventId: req.params.id }).then((quests) => {
+                res.render("event", { event, quests });
+            });
+        },
+        (error) => {
+            res.status(500).send(error);
         }
-    }).then((event) => {
-        res.render("event", {
-            event: event,
-            pageTitle: event.title,
-            path: "/event/" + event.id,
-        });
-    });
+    );
 };
 
 exports.getEvents = (req, res, next) => {
     Event.find({}).then(
         (events) => {
-            res.render('events', {events})
+            res.render("events", { events });
         },
         (error) => {
             res.status(500).send(error);
@@ -109,6 +109,7 @@ exports.updateQuest = (req, res, next) => {
         }
     );
 };
+
 exports.deleteQuest = (req, res, next) => {
     const id = req.body.questId;
     if (Quest.find({ _id: id }).deleteOne() == 1) {
@@ -117,17 +118,16 @@ exports.deleteQuest = (req, res, next) => {
 };
 
 exports.getQuest = (req, res, next) => {
-    Quest.find({ id: req.param.questId }, (err) => {
-        if (err) {
-            console.log(err);
+    Quest.find({ id: req.params.questId }).then(
+        (quest) => {
+            res.render("quest", {
+                quest,
+            });
+        },
+        (error) => {
+            res.status(500).send(error);
         }
-    }).then((quest) => {
-        res.render("quest", {
-            quest: quest,
-            pageTitle: quest.title,
-            path: "/quest/:questId",
-        });
-    });
+    );
 };
 
 exports.getQuests = (req, res, next) => {
@@ -140,20 +140,6 @@ exports.getQuests = (req, res, next) => {
             quests: quests,
             pageTitle: "All Quests",
             path: "/quests",
-        });
-    });
-};
-
-exports.getQuestsForEvent = (req, res, next) => {
-    Quest.find({ eventId: req.params.eventId }, (err) => {
-        if (err) {
-            console.log(err);
-        }
-    }).then((quests) => {
-        res.render("quests", {
-            quests: quests,
-            pageTitle: "Event Quests",
-            path: "/event/quests",
         });
     });
 };

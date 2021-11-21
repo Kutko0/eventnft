@@ -1,0 +1,12 @@
+<%- include('partials/header'); %> <%- include('partials/navbar', {link:
+'events'}); %>
+
+<div class="container">
+    <div>
+        <h1 class="d-flex justify-content-center">Quest: <%= quest.title %></h1>
+
+        <p class="d-flex justify-content-center"><%= quest.description %></p>
+    </div>
+</div>
+
+<%- include('partials/footer'); %>
