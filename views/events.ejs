@@ -1,0 +1,28 @@
+<%- include('partials/header'); %>
+    
+<%- include('partials/navbar', {link: 'events'}); %>
+
+<div class="container">
+    <div>
+        <h1 class="d-flex justify-content-center">Events</h1>
+
+        <p class="d-flex justify-content-center">Here, a list of events will be shown</p>
+
+        <div class="row">
+
+            <% events.forEach(event => { %>
+                <div class="col-sm-6 col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title"><%= event.title %></h5>
+                            <p class="card-text">Organiser: <%= event.organiser %></p>
+                        </div>
+                    </div>
+                </div>
+            <% }) %>
+
+        </div>
+    </div>
+</div>
+
+<%- include('partials/footer'); %>

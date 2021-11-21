@@ -8,7 +8,7 @@ const EventSchema = new Schema({
     },
     organiser: {
         type: String,
-        required: [true, "Event is required to have organizor"],
+        required: [true, "Event is required to have an organiser"],
     },
     questList: [{ type: Schema.Types.ObjectId, ref: "Quest" }],
     dateCreated: { type: Date, default: Date.now },

@@ -66,7 +66,7 @@ exports.getEvent = (req, res, next) => {
 exports.getEvents = (req, res, next) => {
     Event.find({}).then(
         (events) => {
-            res.send(events);
+            res.render('events', {events})
         },
         (error) => {
             res.status(500).send(error);
